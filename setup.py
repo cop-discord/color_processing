@@ -1,25 +1,41 @@
 from setuptools import setup, find_packages
-with open("requirements.txt", "r") as file:
-    requirements = file.readlines()
 
 setup(
     name='color_processing',
-    version='0.1',
+    version='0.3',  # Consider using '0.1.0' for semantic versioning
     packages=find_packages(),
-    include_package_data=True, 
+    include_package_data=True,
     package_data={
-        'color_processing': ['data/*.pkl'], 
+        'color_processing': ['data/*.pkl'],
     },
-    install_requires=requirements,
+    install_requires=[
+        'discord',
+        'fast-string-match',
+        'seaborn',
+        'numpy',
+        'webcolors',
+        'colorgram-rs',
+        'async-tools-ext'  # Use the specific tag
+    ],
     author='cop-discord',
+    requirements=[
+        'discord',
+        'fast-string-match',
+        'seaborn',
+        'numpy',
+        'webcolors',
+        'colorgram-rs',
+
+        'async-tools-ext'  # Use the specific tag
+    ],
     author_email='cop@catgir.ls',
-    description='a package for fetching detailed color information',
+    description='A package for fetching detailed color information',
     long_description=open('README.md').read(),
-    long_description_content_type='text/markdown', 
-    url='https://github.com/cop-discord/color_processing', 
+    long_description_content_type='text/markdown',
+    url='https://github.com/cop-discord/color_processing',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',  
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',

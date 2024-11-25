@@ -3,6 +3,5 @@ fast-string-match
 seaborn
 numpy
 webcolors
-pickle
-colorgram_rs
+colorgram-rs
 async-tools-ext

@@ -23,13 +23,13 @@ class BaseModel(BM):
         arbitrary_types_allowed=True
 class WebSafe(BaseModel):
     hex: str
-    rgb: Any
+    rgb: list
 
 class ColorInfoResponse(BaseModel):
     name: Optional[str] = None
     hex: str
     websafe: WebSafe
-    rgb: Any
+    rgb: list
     brightness: int
     shades: List[str]
     palette: BytesIO

@@ -23,13 +23,13 @@ class BaseModel(BM):
         arbitrary_types_allowed=True
 class WebSafe(BaseModel):
     hex: str
-    rgb: Tuple[int]
+    rgb: Any
 
 class ColorInfoResponse(BaseModel):
     name: Optional[str] = None
     hex: str
     websafe: WebSafe
-    rgb: Tuple[int]
+    rgb: Any
     brightness: int
     shades: List[str]
     palette: BytesIO
@@ -343,33 +343,33 @@ class ColorHolder:
         return cls._colors
         
 
-class ColorConverter(Converter):
-    async def convert(self, ctx: Context, argument: Union[Color, str]):
-        colors = ColorHolder.get_colors()
-        if isinstance(argument, Color):
-            return argument
-        elif argument.lower().startswith("0x"):
-            return Color.from_str(argument)
-        else:
-            argument = str(argument).lower()
-            try:
-                if argument.startswith("#"):
-                    return Color.from_str(argument)
-                else:
-                    return Color.from_str(f"#{argument}")
-            except Exception:
-                pass
-            try:
-                if argument.lower() in ("dom", "dominant"):
-                    return Color.from_str(await colors.get_dominant_color(ctx.author))
-                else:
-                    _ = await colors.color_search(argument)
-                    if isinstance(_, tuple):
-                        _ = _[1]
-                    return Color.from_str(_)
-            except Exception as e:
-                logger.info(f"Color Converter Errored with : {e}")
-                raise CommandError("Invalid color hex given")
+    class ColorConverter(Converter):
+        async def convert(self, ctx: Context, argument: Union[Color, str]):
+            colors = ColorHolder.get_colors()
+            if isinstance(argument, Color):
+                return argument
+            elif argument.lower().startswith("0x"):
+                return Color.from_str(argument)
+            else:
+                argument = str(argument).lower()
+                try:
+                    if argument.startswith("#"):
+                        return Color.from_str(argument)
+                    else:
+                        return Color.from_str(f"#{argument}")
+                except Exception:
+                    pass
+                try:
+                    if argument.lower() in ("dom", "dominant"):
+                        return Color.from_str(await colors.get_dominant_color(ctx.author))
+                    else:
+                        _ = await colors.color_search(argument)
+                        if isinstance(_, tuple):
+                            _ = _[1]
+                        return Color.from_str(_)
+                except Exception as e:
+                    logger.info(f"Color Converter Errored with : {e}")
+                    raise CommandError("Invalid color hex given")
             
 class ColorInfo(Converter):
     async def convert(self, ctx: Context, argument: Union[Color, str, Member, User]):

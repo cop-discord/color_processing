@@ -1,7 +1,0 @@
-discord
-fast-string-match
-seaborn
-numpy
-webcolors
-colorgram-rs
-async-tools-ext

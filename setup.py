@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='color_processing',
-    version='0.5',  # Consider using '0.1.0' for semantic versioning
+    version='0.7',  # Consider using '0.1.0' for semantic versioning
     packages=find_packages(),
     include_package_data=True,
     package_data={
